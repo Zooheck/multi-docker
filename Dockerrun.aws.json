@@ -5,7 +5,8 @@
       "name": "client",
       "image": "dflack/multi-client",
       "hostname": "client",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx",
@@ -17,18 +18,21 @@
           "containerPort": 80
         }
       ],
-      "links": ["client", "api"]
+      "links": ["client", "api"],
+      "memory": 128
     },
     {
       "name": "api",
       "image": "dflack/multi-server",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "worker",
       "image": "dflack/multi-worker",
-      "essential": false
+      "essential": false,
+      "memory": 128
     }
   ]
 }
