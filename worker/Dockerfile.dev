@@ -1,6 +1,6 @@
-FROM node:14.14.0-alpine
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install
+FROM node:alpine
+WORKDIR "/app"
+COPY ./package.json ./
+RUN npm install
 COPY . .
-RUN ["yarn", "dev"]
+CMD ["npm", "run", "dev"]
