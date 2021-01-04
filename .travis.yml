@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t dflack/multi-react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true dflack/multi-react-test npm test
+
+after_success:
+  - docker build -t dflack/multi-client ./client
+  - docker build -t dflack/multi-nginx ./nginx
+  - docker build -t dflack/multi-server ./server
+  - docker build -t dflack/multi-worker ./worker
+  - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push dflack/multi-client
+  - docker push dflack/multi-nginx
+  - docker push dflack/multi-server
+  - docker push dflack/multi-worker
